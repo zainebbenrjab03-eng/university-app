@@ -14,13 +14,19 @@ const etudiant = {
   image: img,
 }
 
-function studentCard() {
+function studentCard(props) {
   return (
-    <div className='container'>
-        <div className='card'>
+    <div>
+        <h1>{props.prenom}</h1>
       
 
-      <img src={etudiant.image} alt="Photo de Zaineb" />
+      
+    </div>
+  )
+}
+
+export default App
+/*<img src={etudiant.image} alt="Photo de Zaineb" />
 
       <h1>Fiche étudiant</h1>
       <strong>Nom & Prénom :</strong> {etudiant.nom} {etudiant.prenom} <br />
@@ -31,9 +37,4 @@ function studentCard() {
         <strong>Groupe :</strong> {etudiant.Groupe}<br/>
         <strong>Ville :</strong> {etudiant.Ville}<br/>
       <button ><a href="main.jsx">contacter</a></button>
-    </div>
-    </div>
-  )
-}
-
-export default App
+    </div>*/
