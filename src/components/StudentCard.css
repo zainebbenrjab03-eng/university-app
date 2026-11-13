@@ -1,0 +1,61 @@
+
+.StudentCard {
+  background-color: white;
+  width: 260px;
+  min-height: 330px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+.StudentCard img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+
+.StudentCard h1 {
+  color: #70b5e9;
+  font-size: 28px;
+  margin: 5px 0;
+  font-weight: 500;
+}
+
+.StudentCard p {
+  color: #77717b;
+  font-size: 13px;
+  margin: 9px 0;
+}
+
+.StudentCard button {
+  background-color: #f0dfc3;
+  color: #65584b;
+  border: none;
+  padding: 7px 10px;
+  margin: 4px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.StudentCard button:hover {
+  background-color: #dfc69e;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.StudentCard {
+  flex: 0 0 260px;
+}

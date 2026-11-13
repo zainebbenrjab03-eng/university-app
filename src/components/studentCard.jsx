@@ -1,40 +1,48 @@
-import './App.css'
-import img from './assets/img.jpg'
 
-const etudiant = {
-  nom: "Zaineb",
-  prenom: "Ben Rjab",
-  age: "20",
-  email: "zainebbenrja03@gmail.com",
-  telephone: "24768870",
-  Filière: "Génie Logiciel",
-  Année: "2026/2027",
-  Groupe: "GLSI A",
-  Ville: "Kelibia",
-  image: img,
-}
+import './StudentCard.css'
+import { useState } from "react";
 
-function studentCard(props) {
+function StudentCard(props) {
+  const [cordonneesVisibles, setCordonneesVisibles] = useState(false);
+
+  function basculerCordonnees() {
+    setCordonneesVisibles(!cordonneesVisibles);
+  }
+
   return (
-    <div>
-        <h1>{props.prenom}</h1>
-      
+    <div className="StudentCard">
+      <img src={props.image} alt="student" />
 
-      
+      <h1>{props.prenom} {props.nom}</h1>
+
+      {cordonneesVisibles && (
+        <>
+          <p>email :{props.email}</p>
+          <p>telephone : {props.telephone}</p>
+        </>
+      )}
+
+      <p>Année : {props.annee}</p>
+      <p>Groupe : {props.groupe}</p>
+      <p>Ville : {props.ville}</p>
+
+      <button>Contacter</button>
+
+      <button onClick={basculerCordonnees}>
+        {cordonneesVisibles
+          ? "Masquer les coordonnées"
+          : "Afficher les coordonnées"
+        }
+      </button>
+      <button onClick={() => props.supprimeretudiant(props.id)}>
+  Supprimer
+</button>
+<button onClick={()=>props.modifieretudiant(props.id)}>
+  modifier
+</button>
+
     </div>
   )
 }
 
-export default App
-/*<img src={etudiant.image} alt="Photo de Zaineb" />
-
-      <h1>Fiche étudiant</h1>
-      <strong>Nom & Prénom :</strong> {etudiant.nom} {etudiant.prenom} <br />
-      <strong>Email :</strong> {etudiant.email}<br/>
-        <strong>Téléphone :</strong> {etudiant.telephone}<br/>
-        <strong>Filière :</strong> {etudiant.Filière}<br/>
-        <strong>Année d'étude :</strong> {etudiant.Année}<br/>
-        <strong>Groupe :</strong> {etudiant.Groupe}<br/>
-        <strong>Ville :</strong> {etudiant.Ville}<br/>
-      <button ><a href="main.jsx">contacter</a></button>
-    </div>*/
+export default StudentCard
