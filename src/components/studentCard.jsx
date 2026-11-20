@@ -37,7 +37,7 @@ function StudentCard(props) {
       <button onClick={() => props.supprimeretudiant(props.id)}>
   Supprimer
 </button>
-<button onClick={()=>props.modifieretudiant(props.id)}>
+<button onClick={()=>onModifier(etudiant)}>
   modifier
 </button>
 

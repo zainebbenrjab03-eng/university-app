@@ -1,0 +1,108 @@
+
+.student-form {
+    width: 100%;
+    max-width: 350px;
+    margin: 30px auto;
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+
+.student-form h2 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: normal;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.student-form label {
+    text-align: center;
+    color: #a52a2a;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.student-form input,
+.student-form select {
+    width: 100%;
+    height: 24px;
+    padding: 4px;
+    border: 1px solid #d8d8d8;
+    border-radius: 3px;
+    background-color: white;
+    box-sizing: border-box;
+    font-size: 10px;
+}
+
+.student-form input[type="file"] {
+    height: 28px;
+}
+
+.student-form button {
+    width: 65px;
+    margin: 5px auto;
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+    background-color: #ead9b9;
+    color: #795d35;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+
+.student-form h2 {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.5;
+}
+
+
+.student-form label {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.student-form {
+    box-sizing: border-box;
+}
+
+
+.student-form input {
+    box-sizing: border-box;
+}
+
+
+.student-form input:focus,
+.student-form select:focus {
+    border-color: blue;
+    outline: none;
+}
+
+.student-form button:hover {
+    background-color: #333;
+    color: white;
+}
+
+.student-form button {
+    cursor: pointer;
+}
+.error-msg {
+    color: red;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}

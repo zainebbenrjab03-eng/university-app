@@ -6,115 +6,135 @@ import StudentCard from './components/studentCard'
 import Header from './components/header'
 import Navbar from './components/navbar'
 import Footer from './components/footer'
-import { useState } from 'react'
+import StudentForm from './components/StudentForm'
+import { useState, useEffect } from 'react'
+
 function App() {
-  
-const [etudiants,setEtudiants] =useState( [
-  { 
-    id:1,
-    nom: "Zaineb",
-    prenom: "Ben Rjab",
-    age: "20",
-    email: "zainebbenrja03@gmail.com",
-    telephone: "24768870",
-    filiere: "Génie Logiciel",
-    annee: "2026/2027",
-    groupe: "GLSI A",
-    ville: "Kelibia",
-    image: img,
-  },
-  {
-    id:2,
-    nom: "Sarra",
-    prenom: "Trabelsi",
-    age: "20",
-    email: "sarra.trabelsi@gmail.com",
-    telephone: "+216 22 345 678",
-    filiere: "Génie Logiciel",
-    annee: "2026/2027",
-    groupe: "GLSI A",
-    ville: "Sousse",
-    image: img2,
-  },
-]
 
-)
-const [recherche, setRecherche] = useState("")
-function ajouterEtudiant(){
-    const nouvelEtudiant={
-      id: Date.now(),
-      nom:"ben salem",
-      prenom:"yassine",
-      email:"yassine.bensalem@gmail.com",
-      telephone:"+216 44 444 444",
-      filiere:"genie logiciel et sys d'inform",
-      annee:"2eme année",
-      groupe:"GLSI 1",
-      ville:"sfax",
-      image:img,
+    const [etudiants, setEtudiants] = useState([
+        {
+            id: 1,
+            nom: "Zaineb",
+            prenom: "Ben Rjab",
+            age: "20",
+            email: "zainebbenrja03@gmail.com",
+            telephone: "24768870",
+            filiere: "Génie Logiciel",
+            annee: "2026/2027",
+            groupe: "GLSI A",
+            ville: "Kelibia",
+            image: img,
+        },
+        {
+            id: 2,
+            nom: "Sarra",
+            prenom: "Trabelsi",
+            age: "20",
+            email: "sarra.trabelsi@gmail.com",
+            telephone: "+216 22 345 678",
+            filiere: "Génie Logiciel",
+            annee: "2026/2027",
+            groupe: "GLSI A",
+            ville: "Sousse",
+            image: img2,
+        },
+    ]);
+
+    const [recherche, setRecherche] = useState("");
+    const [etudiantModifier, setEtudiantModifer] = useState(null);
+
+    useEffect(() => {
+        localStorage.setItem("etudiants", JSON.stringify(etudiants));
+    }, [etudiants]);
+
+    function ajouterEtudiant(nouvelEtudiant) {
+        const etudiantAvecId = {
+            ...nouvelEtudiant,
+            id: Date.now(),
+        };
+
+        setEtudiants((anciensEtudiants) => [
+            ...anciensEtudiants,
+            etudiantAvecId
+        ]);
     }
-    setEtudiants([...etudiants,nouvelEtudiant])
-  }
-  
-  function supprimeretudiant(id) {
-    setEtudiants(etudiants.filter((etudiant)=>etudiant.id!=id))
-  
+
+    function supprimeretudiant(id) {
+        setEtudiants((anciensEtudiants) =>
+            anciensEtudiants.filter((etudiant) => etudiant.id !== id)
+        );
+    }
+
+    function modifierEtudiant(etudiant) {
+        setEtudiantModifer(etudiant);
+    }
+
+    function enregistrerModification(etudiantModifie) {
+        setEtudiants((anciensEtudiants) =>
+            anciensEtudiants.map((etudiant) =>
+                etudiant.id === etudiantModifie.id
+                    ? etudiantModifie
+                    : etudiant
+            )
+        );
+
+        setEtudiantModifer(null);
+    }
+
+    const etudiantsFiltres = etudiants.filter((etudiant) =>
+        etudiant.nom.toLowerCase().includes(recherche.toLowerCase()) ||
+        etudiant.prenom.toLowerCase().includes(recherche.toLowerCase()) ||
+        etudiant.filiere.toLowerCase().includes(recherche.toLowerCase())
+    );
+
+    return (
+        <div className="page">
+            <Header />
+
+            <Navbar />
+
+            <StudentForm
+                key={etudiantModifier ? etudiantModifier.id : "nouveau"}
+                onAjouterEtudiant={ajouterEtudiant}
+                etudiantModifier={etudiantModifier}
+                onEnregistrerModification={enregistrerModification}
+            />
+
+            <div className="actions">
+                <input
+                    type="text"
+                    placeholder="Rechercher un étudiant..."
+                    value={recherche}
+                    onChange={(e) => setRecherche(e.target.value)}
+                />
+            </div>
+
+            <main className="container" id="etudiants">
+                {etudiantsFiltres.length > 0 ? (
+                    etudiantsFiltres.map((etudiant) => (
+                        <StudentCard
+                            id={etudiant.id}
+                            key={etudiant.id}
+                            prenom={etudiant.prenom}
+                            nom={etudiant.nom}
+                            email={etudiant.email}
+                            telephone={etudiant.telephone}
+                            annee={etudiant.annee}
+                            groupe={etudiant.groupe}
+                            ville={etudiant.ville}
+                            image={etudiant.image}
+                            supprimeretudiant={supprimeretudiant}
+                            onModifier={modifierEtudiant}
+                        />
+                    ))
+                ) : (
+                    <p>Aucun étudiant trouvé.</p>
+                )}
+            </main>
+
+            <Footer />
+        </div>
+    );
 }
-function modifieretudiant(id){
-  let v1=prompt("donner le nom")
-  
- if (v1 === null || v1.trim() === "") {
-    alert("Nom invalide");
-    return;
-  }
 
-  v1 = v1.trim();
-
-  setEtudiants(etudiants.map((etudiant)=>etudiant.id==id ?{...etudiant,nom:v1}:etudiant))
-}
-
-
-  const etudiantsFiltres = etudiants.filter((etudiant) =>
-    etudiant.nom.toLowerCase().includes(recherche.toLowerCase()) ||
-    etudiant.prenom.toLowerCase().includes(recherche.toLowerCase()) ||
-    etudiant.filiere.toLowerCase().includes(recherche.toLowerCase())
-)
-  return (
-    <div className="page">
-      <Header />
-      <Navbar />
-    <div className="actions">
-  <button onClick={ajouterEtudiant}>ajouter un etudiant</button>
-<input
-  type="text"
-  placeholder="Rechercher un étudiant..."
-  value={recherche}
-  onChange={(e) => setRecherche(e.target.value)}
-/>
-
-</div>
-      <main className="container" id="etudiants">
-        {etudiantsFiltres.map((etudiant) => (
-          <StudentCard
-            id={etudiant.id}
-            key={etudiant.email}
-            prenom={etudiant.prenom}
-            nom={etudiant.nom}
-            email={etudiant.email}
-            telephone={etudiant.telephone}
-            annee={etudiant.annee}
-            groupe={etudiant.groupe}
-            ville={etudiant.ville}
-            image={etudiant.image}
-            supprimeretudiant={supprimeretudiant}
-            modifieretudiant={modifieretudiant}
-          />
-        ))}
-      </main>
-
-      <Footer />
-    </div>
-  )
-}
-
-export default App
+export default App;
